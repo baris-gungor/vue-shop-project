@@ -1,55 +1,59 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar app color="white" flat>
-      <v-container class="py-0 fill-height">
-        <v-avatar class="mr-10" color="grey darken-1" size="32"></v-avatar>
-        <v-btn class="mx-4" v-for="item in items" :key="item.title" link :to="item.to">
+    <v-navigation-drawer v-model="drawer" app v-if="menuVersion > window.width">
+      <div class="sc-side-nav">
+        <v-btn
+          class="my-3"
+          v-for="item in items"
+          :key="item.title"
+          link
+          :to="item.to"
+        >
+          <!-- {{ item.title }}  -->
           {{ item.title }}
         </v-btn>
-        <v-spacer></v-spacer>
-        <v-responsive max-width="260">
-          <v-text-field
-            dense
-            flat
-            hide-details
-            rounded
-            solo-inverted
-          ></v-text-field>
-        </v-responsive>
-      </v-container>
+      </div>
+    </v-navigation-drawer>
+
+    <v-app-bar app>
+      <v-app-bar-nav-icon
+        @click="drawer = !drawer"
+        v-if="menuVersion > window.width"
+      ></v-app-bar-nav-icon>
+      <div class="sc-top-nav" v-if="menuVersion <= window.width">
+        <v-btn
+          class="ml-6"
+          v-for="item in items"
+          :key="item.title"
+          link
+          :to="item.to"
+        >
+          {{ item.title }}
+        </v-btn>
+      </div>
     </v-app-bar>
+
     <v-main class="grey lighten-3">
       <v-container>
-        <v-row>
-          <v-col cols="2">
-            <v-sheet rounded="lg">
-              <v-list color="transparent">
-                <!-- <div v-for="(item, index) in items" :key="index"> -->
-                <v-list-item v-for="(item, index) in items" :key="index">
-                  <v-list-item-content>
-                    <v-btn> x value</v-btn>
-                  </v-list-item-content> </v-list-item
-                ><v-divider class="ma-2"></v-divider>
-                <!-- </div> -->
-              </v-list>
-            </v-sheet>
-          </v-col>
-          <v-col>
-            <v-sheet min-height="70vh" rounded="lg">
-              <router-view />
-            </v-sheet>
-          </v-col>
-        </v-row>
+        <v-sheet min-height="70vh" rounded="lg">
+          <router-view />
+        </v-sheet>
       </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
+import Vuetify from "./plugins/vuetify";
 export default {
   name: "App",
-
+  components: {},
   data: () => ({
+    menuVersion: 960,
+    window: {
+      width: 0,
+      height: 0,
+    },
     items: [
       {
         title: "Dashboard",
@@ -68,6 +72,30 @@ export default {
         to: "/settings",
       },
     ],
+    drawer: null,
   }),
+  created() {
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+  },
+  computed: {},
+  methods: {
+    handleResize() {
+      this.window.width = window.innerWidth;
+      this.window.height = window.innerHeight;
+    },
+  },
 };
 </script>
+<style lang="scss">
+.sc-side-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+.sc-top-nav {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+</style>
