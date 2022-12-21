@@ -88,6 +88,9 @@ export default {
 };
 </script>
 <style lang="scss">
+.container{
+  margin-top: 20px !important;
+}
 .sc-side-nav {
   display: flex;
   flex-direction: column;
