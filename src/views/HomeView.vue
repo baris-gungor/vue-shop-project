@@ -3,12 +3,34 @@
     <v-card-title>
       <span class="text-h2 text-center">Başlık 1</span>
     </v-card-title>
-    <v-row class="ma-0" justify="center">
+    <template>
+      <v-carousel
+        height="500"
+        class="sc-carousel"
+        :style="[
+          windowSize.width <= 600
+            ? { width: '90%', height: '200px' }
+            : { width: '70%' },
+        ]"
+        ><div class="sc-carousel-container">
+          <v-carousel-item v-for="(slide, i) in database" :key="i">
+            <v-sheet class="mx-auto">
+              <v-img class="sc-carousel-img" :src="slide.url">
+                <v-row class="fill-height" align="center" justify="center">
+                  <!-- <div class="text-h2">{{ slide.title }}</div> -->
+                </v-row></v-img
+              >
+            </v-sheet>
+          </v-carousel-item>
+        </div>
+      </v-carousel>
+    </template>
+    <v-row class="mx-0 mt-6" justify="center">
       <v-dialog v-model="dialog" class="sc-dialog">
         <template v-slot:activator="{ on, attrs }">
           <div class="sc-content">
             <v-card
-              v-for="(item, index) in contentData"
+              v-for="(item, index) in database"
               :key="index.title"
               class="ma-3 sc-card"
               v-bind="attrs"
@@ -58,60 +80,27 @@
 
 <script>
 export default {
+  props: {
+    database: Array,
+    windowSize: Object,
+  },
   name: "Home",
   components: {},
   data: () => ({
-    // windowWidth = window.innerWidth,
     dialog: false,
-    contentData: [
-      {
-        url: "https://m.media-amazon.com/images/I/81-FabsEArL._AC_SL1500_.jpg",
-        title: "Proplan Kedi Maması1",
-        rating: 1.5,
-        totalRate: 34,
-        desc: "Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle.",
-      },
-      {
-        url: "https://m.media-amazon.com/images/I/81-FabsEArL._AC_SL1500_.jpg",
-        title: "Proplan Kedi Maması2",
-        rating: 3.5,
-        totalRate: 34,
-        desc: "Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. ",
-      },
-      {
-        url: "https://m.media-amazon.com/images/I/81-FabsEArL._AC_SL1500_.jpg",
-        title: "Proplan Kedi Maması3",
-        rating: 3.5,
-        totalRate: 34,
-        desc: "Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. ",
-      },
-      {
-        url: "https://m.media-amazon.com/images/I/81-FabsEArL._AC_SL1500_.jpg",
-        title: "Proplan Kedi Maması4",
-        rating: 3.5,
-        totalRate: 34,
-        desc: "Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. ",
-      },
-      {
-        url: "https://m.media-amazon.com/images/I/81-FabsEArL._AC_SL1500_.jpg",
-        title: "Proplan Kedi Maması5",
-        rating: 3.5,
-        totalRate: 34,
-        desc: "Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. ",
-      },
-      {
-        url: "https://m.media-amazon.com/images/I/81-FabsEArL._AC_SL1500_.jpg",
-        title: "Proplan Kedi Maması6",
-        rating: 3.5,
-        totalRate: 34,
-        desc: "Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle. Örnek bir cümle 7. Örnek bir cümle. ",
-      },
-    ],
     selectedContent: {
       url: "",
       title: "",
       desc: "",
     },
+    colors: [
+      "indigo",
+      "warning",
+      "pink darken-2",
+      "red lighten-1",
+      "deep-purple accent-4",
+    ],
+    slides: ["First", "Second", "Third", "Fourth", "Fifth"],
   }),
   methods: {
     selectContent(item) {
@@ -120,7 +109,7 @@ export default {
         title: item.title,
         desc: item.desc,
       };
-      console.log("for:", item);
+      // console.log("for:", item);
     },
   },
 };
@@ -141,7 +130,49 @@ export default {
   display: flex;
   max-height: 80% !important;
 }
+.sc-carousel {
+  max-width: 60%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  border: 0.5px solid #0000004a;
+  box-shadow: 0px 0px 10px -5px rgb(0 0 0 / 20%);
+  padding: 0px 10px;
+  .v-application {
+  }
+  .v-img {
+    // width: 100%;
 
+    .v-image__image--cover {
+      background-size: contain;
+    }
+  }
+  .v-responsive {
+    align-items: center;
+    display: flex;
+    margin: 0px auto !important;
+    // max-width: 60%;
+  }
+  .v-window__container {
+    max-height: 95%;
+  }
+  .v-carousel__controls {
+    max-height: 10%;
+    display: none;
+    .v-btn--icon.v-size--small {
+      height: 9px;
+      width: 7px;
+    }
+    .v-item-group {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .v-btn--icon.v-size--small .v-icon,
+    .v-btn--fab.v-size--small .v-icon {
+      font-size: 6px !important;
+    }
+  }
+}
 .sc-card {
   display: flex !important;
   flex-wrap: wrap !important;

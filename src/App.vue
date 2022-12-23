@@ -36,7 +36,7 @@
     <v-main class="grey lighten-3">
       <v-container>
         <v-sheet min-height="70vh" rounded="lg">
-          <router-view />
+          <router-view :database="users" :windowSize="window" />
         </v-sheet>
       </v-container>
     </v-main>
@@ -45,10 +45,13 @@
 
 <script>
 import Vuetify from "./plugins/vuetify";
+import usersData from "./db.json";
+
 export default {
   name: "App",
   components: {},
   data: () => ({
+    users: usersData,
     menuVersion: 960,
     window: {
       width: 0,
@@ -77,6 +80,8 @@ export default {
   created() {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
+    this.users[0].url="https://i.pinimg.com/originals/be/a3/72/bea372e98e82e4f2d81e4982361e2654.png"
+    // console.log("mockobje: ",this.users)
   },
   computed: {},
   methods: {
@@ -88,7 +93,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.container{
+.container {
   margin-top: 20px !important;
 }
 .sc-side-nav {
