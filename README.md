@@ -1,4 +1,4 @@
-in this file you have a blank vue with sass and unit test
+# [You can see live demo!](https://v-shop-project.netlify.app)
 ## Project setup
 ```
 npm install
