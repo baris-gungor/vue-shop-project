@@ -5,7 +5,6 @@
     </v-card-title>
     <template>
       <v-carousel
-        height="500"
         class="sc-carousel"
         :style="[
           windowSize.width <= 600
@@ -37,7 +36,12 @@
               v-on="on"
               @click="selectContent(item)"
             >
-              <v-img height="250" class="sc-card-img" :src="item.url"></v-img>
+              <v-img
+                max-width="300"
+                max-height="168.75"
+                class="sc-card-img"
+                :src="item.url"
+              ></v-img>
               <v-card-title>{{ item.title }}</v-card-title>
               <v-card-text>
                 <!-- <v-row align="center" class="mx-0 mb-1">
@@ -131,18 +135,11 @@ export default {
   max-height: 80% !important;
 }
 .sc-carousel {
-  max-width: 60%;
-  display: flex;
-  flex-direction: column;
   border-radius: 12px;
   border: 0.5px solid #0000004a;
   box-shadow: 0px 0px 10px -5px rgb(0 0 0 / 20%);
-  padding: 0px 10px;
-  .v-application {
-  }
+  padding: 0px 0px;
   .v-img {
-    // width: 100%;
-
     .v-image__image--cover {
       background-size: contain;
     }
@@ -151,10 +148,9 @@ export default {
     align-items: center;
     display: flex;
     margin: 0px auto !important;
-    // max-width: 60%;
   }
   .v-window__container {
-    max-height: 95%;
+    justify-content: center;
   }
   .v-carousel__controls {
     max-height: 10%;
