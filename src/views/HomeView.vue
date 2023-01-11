@@ -179,7 +179,7 @@ export default {
   justify-content: center;
   text-align: center;
   color: var(--buttonText) !important;
-  background-color: var(--secondaryBack) !important;
+  background-color: var(--thirdBack) !important;
 }
 .sc-card-img {
   width: 100% !important;
@@ -206,6 +206,7 @@ export default {
   flex-direction: column;
   background-color: var(--secondaryBack) !important;
   color: var(--buttonText) !important;
+  border-radius: 0px !important;
 }
 .sc-dialog-desc {
   padding: 0px 30px;

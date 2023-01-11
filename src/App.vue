@@ -20,7 +20,7 @@
           </div>
         </div>
         <v-btn
-          class="my-3"
+          class="my-3 sc-side-btn"
           v-for="item in items"
           :key="item.title"
           link
@@ -34,6 +34,7 @@
 
     <v-app-bar class="sc-top-header" app>
       <v-app-bar-nav-icon
+        class="sc-top-hamburger"
         @click="drawer = !drawer"
         v-if="menuVersion > window.width"
       ></v-app-bar-nav-icon>
@@ -158,14 +159,16 @@ export default {
 :root {
   --primaryBack: #eeeeee;
   --secondaryBack: white;
-  // --primaryTitle: transparent;
-  // --secondaryTitle: transparent;
+  --thirdBack: white;
+  --fourthBack: #cacaca;
   --buttonText: #404258;
 }
 
 [theme="dark"] {
   --primaryBack: #404258;
   --secondaryBack: #474e68;
+  --thirdBack: #50577a;
+  --fourthBack: #6b728e;
   --buttonText: rgba(255, 255, 255, 0.845);
 }
 
@@ -192,14 +195,25 @@ export default {
   padding: 50px 30px;
   align-items: center;
   flex-direction: column;
+  .v-btn {
+    background-color: var(--thirdBack) !important;
+    color: var(--buttonText) !important;
+  }
 }
 .sc-top-header {
   background-color: var(--primaryBack) !important;
+}
+.sc-top-hamburger {
+  color: var(--buttonText) !important;
 }
 .sc-top-nav {
   display: flex;
   width: 100%;
   justify-content: space-evenly;
+  .v-btn {
+    background-color: var(--thirdBack) !important;
+    color: var(--buttonText) !important;
+  }
 }
 .sc-home-container {
   background-color: var(--secondaryBack);
@@ -246,17 +260,17 @@ export default {
   transform: rotate(45deg);
 }
 ::-webkit-scrollbar-track {
-  // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: var(--secondaryBack);
+  // -webkit-box-shadow: inset 0px 0px 16px 0px rgb(0 0 0 / 30%);
+  background-color: var(--primaryBack);
 }
 
 ::-webkit-scrollbar {
   width: 10px;
-  background-color: var(--secondaryBack);
+  background-color: var(--primaryBack);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--buttonText);
+  background-color: var(--fourthBack);
   border: 1px solid #55555500;
   border-radius: 10px;
 }
