@@ -1,7 +1,24 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app v-if="menuVersion > window.width">
+    <v-navigation-drawer
+      class="sc-side-container"
+      v-model="drawer"
+      app
+      v-if="menuVersion > window.width"
+    >
       <div class="sc-side-nav">
+        <div class="item">
+          <div class="toggle-pill-bw">
+            <input
+              type="checkbox"
+              id="pill2"
+              name="pageTheme"
+              @click="whatistheme"
+              v-model="darkMode"
+            />
+            <label for="pill2"></label>
+          </div>
+        </div>
         <v-btn
           class="my-3"
           v-for="item in items"
@@ -15,12 +32,24 @@
       </div>
     </v-navigation-drawer>
 
-    <v-app-bar app>
+    <v-app-bar class="sc-top-header" app>
       <v-app-bar-nav-icon
         @click="drawer = !drawer"
         v-if="menuVersion > window.width"
       ></v-app-bar-nav-icon>
       <div class="sc-top-nav" v-if="menuVersion <= window.width">
+        <div class="item">
+          <div class="toggle-pill-bw">
+            <input
+              type="checkbox"
+              id="pill2"
+              name="pageTheme"
+              @click="whatistheme"
+              v-model="darkMode"
+            />
+            <label for="pill2"></label>
+          </div>
+        </div>
         <v-btn
           class="ml-6"
           v-for="item in items"
@@ -33,9 +62,9 @@
       </div>
     </v-app-bar>
 
-    <v-main class="grey lighten-3">
+    <v-main class="main-container">
       <v-container>
-        <v-sheet min-height="70vh" rounded="lg">
+        <v-sheet min-height="70vh" style="background: transparent" rounded="lg">
           <router-view :database="users" :windowSize="window" />
         </v-sheet>
       </v-container>
@@ -51,6 +80,7 @@ export default {
   name: "App",
   components: {},
   data: () => ({
+    darkMode: false,
     users: usersData,
     menuVersion: 960,
     window: {
@@ -80,7 +110,8 @@ export default {
   created() {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
-    this.users[0].url="https://i.pinimg.com/originals/be/a3/72/bea372e98e82e4f2d81e4982361e2654.png"
+    this.users[0].url =
+      "https://i.pinimg.com/originals/be/a3/72/bea372e98e82e4f2d81e4982361e2654.png";
     // console.log("mockobje: ",this.users)
   },
   computed: {},
@@ -89,21 +120,144 @@ export default {
       this.window.width = window.innerWidth;
       this.window.height = window.innerHeight;
     },
+    whatistheme() {
+      console.log(this.pageTheme);
+    },
+  },
+  mounted() {
+    // set 'app-background' class to body
+    // let bodyElement = document.body;
+    // bodyElement.classList.add("container");
+    let htmlElement = document.documentElement;
+    let theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      htmlElement.setAttribute("theme", "dark");
+      this.darkMode = true;
+    } else {
+      htmlElement.setAttribute("theme", "light");
+      this.darkMode = false;
+    }
+  },
+
+  watch: {
+    darkMode: function () {
+      // add/remove class to/from html tag
+      let htmlElement = document.documentElement;
+      if (this.darkMode) {
+        localStorage.setItem("theme", "dark");
+        htmlElement.setAttribute("theme", "dark");
+      } else {
+        localStorage.setItem("theme", "light");
+        htmlElement.setAttribute("theme", "light");
+      }
+    },
   },
 };
 </script>
 <style lang="scss">
+:root {
+  --primaryBack: #eeeeee;
+  --secondaryBack: white;
+  // --primaryTitle: transparent;
+  // --secondaryTitle: transparent;
+  --buttonText: #404258;
+}
+
+[theme="dark"] {
+  --primaryBack: #404258;
+  --secondaryBack: #474e68;
+  --buttonText: rgba(255, 255, 255, 0.845);
+}
+
+// [theme="light"] {
+//   --primaryBack: transparent;
+//   --secondaryBack: transparent;
+// }
+.main-container {
+  background-color: var(--primaryBack);
+  border-color: var(--primaryBack);
+}
 .container {
   margin-top: 20px !important;
+  background-color: var(--secondaryBack);
+  border-color: var(--primaryBack);
+  border-radius: 8px;
+}
+.sc-side-container {
+  background-color: var(--secondaryBack) !important;
+  border-color: var(--primaryBack) !important;
 }
 .sc-side-nav {
   display: flex;
+  padding: 50px 30px;
+  align-items: center;
   flex-direction: column;
-  padding: 30px;
+}
+.sc-top-header {
+  background-color: var(--primaryBack) !important;
 }
 .sc-top-nav {
   display: flex;
   width: 100%;
   justify-content: space-evenly;
+}
+.sc-home-container {
+  background-color: var(--secondaryBack);
+  border-color: var(--primaryBack);
+  border: none;
+  // border-radius: 8px;
+}
+
+.toggle-pill-bw input[type="checkbox"] {
+  display: none;
+}
+.toggle-pill-bw input[type="checkbox"] + label {
+  display: block;
+  position: relative;
+  width: 3em;
+  height: 1.6em;
+  margin-bottom: 20px;
+  background-color: var(--secondaryBack);
+  border: 1px solid var(--buttonText);
+  border-radius: 1em;
+  cursor: pointer;
+  -webkit-transition: background 0.1s ease-in-out;
+  transition: background 0.1s ease-in-out;
+}
+.toggle-pill-bw input[type="checkbox"] + label:before {
+  content: "";
+  display: block;
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 1em;
+  background-color: var(--buttonText);
+  position: absolute;
+  left: 0.2em;
+  top: 0.2em;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.toggle-pill-bw input[type="checkbox"]:checked + label {
+  background: #40464a;
+}
+.toggle-pill-bw input[type="checkbox"]:checked + label:before {
+  left: 1.6em;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+::-webkit-scrollbar-track {
+  // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: var(--secondaryBack);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: var(--secondaryBack);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--buttonText);
+  border: 1px solid #55555500;
+  border-radius: 10px;
 }
 </style>

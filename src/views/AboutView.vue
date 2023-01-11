@@ -2,7 +2,7 @@
   <div>
     <div class="sc-about-container">
       <v-img :src="about.imgUrl" class="sc-about-img"></v-img>
-      <v-card-title>
+      <v-card-title class="sc-dialog-title">
         <span class="text-h5">{{ about.title }}</span>
       </v-card-title>
       <v-card-text class="sc-dialog-desc">
@@ -33,6 +33,7 @@ export default {
   align-items: center;
   padding: 10px 0px;
   text-align: center;
+  color: var(--buttonText);
 }
 .sc-about-img {
   max-width: 80%;

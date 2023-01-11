@@ -123,6 +123,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  color: var(--buttonText);
 }
 .sc-content {
   display: flex;
@@ -176,6 +178,8 @@ export default {
   max-width: 88% !important;
   justify-content: center;
   text-align: center;
+  color: var(--buttonText) !important;
+  background-color: var(--secondaryBack) !important;
 }
 .sc-card-img {
   width: 100% !important;
@@ -191,16 +195,22 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+  color: var(--buttonText) !important;
 }
 .sc-dialog-card {
   display: flex;
   padding: 16px;
   height: 100%;
   align-items: center;
+  text-align: center;
   flex-direction: column;
+  background-color: var(--secondaryBack) !important;
+  color: var(--buttonText) !important;
 }
 .sc-dialog-desc {
   padding: 0px 30px;
   font-size: 16px;
+  text-align: center;
+  color: var(--buttonText) !important;
 }
 </style>
