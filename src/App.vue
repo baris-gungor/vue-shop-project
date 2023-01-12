@@ -199,6 +199,10 @@ export default {
     background-color: var(--thirdBack) !important;
     color: var(--buttonText) !important;
   }
+  .theme--light.v-btn::before {
+    opacity: 1 !important;
+    background-color: transparent;
+  }
 }
 .sc-top-header {
   background-color: var(--primaryBack) !important;
@@ -206,6 +210,7 @@ export default {
 .sc-top-hamburger {
   color: var(--buttonText) !important;
 }
+
 .sc-top-nav {
   display: flex;
   width: 100%;
@@ -213,6 +218,10 @@ export default {
   .v-btn {
     background-color: var(--thirdBack) !important;
     color: var(--buttonText) !important;
+  }
+  .theme--light.v-btn::before {
+    opacity: 1 !important;
+    background-color: transparent;
   }
 }
 .sc-home-container {
