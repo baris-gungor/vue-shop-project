@@ -1,4 +1,5 @@
 # [You can see live demo!](https://v-shop-project.netlify.app)
+This is a vue-vuetify frontend project for exercise and if the components needed in future.
 ## Project setup
 ```
 npm install
