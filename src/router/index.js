@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView'
+import TodoView from '../views/TodoView'
 import PackageView from '../views/PackageView.vue'
 import SettingsView from '../views/SettingsView'
 Vue.use(VueRouter)
@@ -13,9 +13,9 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/about',
-    name: 'about',
-    component: AboutView
+    path: '/todo',
+    name: 'todo',
+    component: TodoView
   },
   {
     path: '/package',

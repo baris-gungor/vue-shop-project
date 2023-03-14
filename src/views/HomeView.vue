@@ -12,7 +12,7 @@
             : { width: '70%' },
         ]"
         ><div class="sc-carousel-container">
-          <v-carousel-item v-for="(slide, i) in database" :key="i">
+          <v-carousel-item v-for="(slide, i) in userdata" :key="i">
             <v-sheet class="mx-auto">
               <v-img class="sc-carousel-img" :src="slide.url">
                 <v-row class="fill-height" align="center" justify="center">
@@ -29,7 +29,7 @@
         <template v-slot:activator="{ on, attrs }">
           <div class="sc-content">
             <v-card
-              v-for="(item, index) in database"
+              v-for="(item, index) in userdata"
               :key="index.title"
               class="ma-3 sc-card"
               v-bind="attrs"
@@ -85,26 +85,18 @@
 <script>
 export default {
   props: {
-    database: Array,
+    userdata: Array,
     windowSize: Object,
   },
-  name: "Home",
+  name: 'Home',
   components: {},
   data: () => ({
     dialog: false,
     selectedContent: {
-      url: "",
-      title: "",
-      desc: "",
+      url: '',
+      title: '',
+      desc: '',
     },
-    colors: [
-      "indigo",
-      "warning",
-      "pink darken-2",
-      "red lighten-1",
-      "deep-purple accent-4",
-    ],
-    slides: ["First", "Second", "Third", "Fourth", "Fifth"],
   }),
   methods: {
     selectContent(item) {
